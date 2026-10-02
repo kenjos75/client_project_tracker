@@ -13,6 +13,18 @@ A simple tracker for a digital agency's project managers to record client projec
 - JSON error responses for validation failures and missing records
 - Feature tests covering every endpoint and validation rule
 
+## Assumptions
+
+- Authentication and user roles are out of scope, since `REQUIREMENTS.md` does not mention them. Anyone who can reach the app can manage projects.
+- Client name is stored as a field on the project. There is no separate `clients` table, because the spec lists it as one of the project's fields.
+- `description` is optional. Every other field is required.
+- Dates use the `YYYY-MM-DD` format, and a due date equal to the start date is allowed. Only an earlier due date is rejected.
+- `status` and `priority` accept only the exact values listed in the spec, with the same capitalization.
+- `PUT` replaces the whole project, so the client sends all required fields on every update.
+- The project list is not paginated, because only a small number of projects is expected.
+- Deleting a project permanently removes it (no soft delete or archive).
+- The app runs locally. Deployment configuration is not included.
+
 ## Requirements
 
 - PHP 8.2+ and Composer (with the `pdo_mysql` extension enabled)
